@@ -1,4 +1,4 @@
-from flask import Flask, render_template, make_response
+from flask import Flask, render_template, make_response, jsonify
 from flask_restplus import Api, Resource, reqparse, marshal, abort, fields
 from app.simulation import RoboVsDino
 from app.storage_util import StorageUtility
@@ -39,6 +39,17 @@ class RobotVsDinoModel(object):
         'direction': fields.String(required=False, enum=[x.name for x in Direction],
                                    description = "required for robot only"),
         'description': fields.String(required=False, description='optional description about robot/dinosaur')
+    })
+
+
+class InstructionModel(object):
+    # API model for issue instruction i.e. robot can turn left, turn right, move forward, move backward, and attack
+    issue_instruction = api.model('issue_instruction', {
+        'x_cord': fields.Integer(required=True, description='x-cord of robot in grid'),
+        'y_cord': fields.Integer(required=True, description='y-cord of robot in grid'),
+        'direction': fields.String(required=True, enum=[x.name for x in Direction],
+                                   description="only robot can modify its direction"),
+        'attack': fields.Boolean(required=False, description='attack or only change direction', default=False)
     })
 
 
@@ -101,7 +112,33 @@ class RoboVsDinoCreateEntity(Resource):
                 # return same payload as input
                 return api.payload
             else:
-                return {"message": "Grid spot already reserved"}, 404
+                return {"message": "Grid spot already reserved or coordinates outside simulation grid"}, 404
+        except Exception as e:
+            abort(500, str(e), status='some internal api error occurred', statusCode='500')
+
+
+@ns.route('/robot_instruction')
+class IssueRobotInstruction(Resource):
+    @api.doc('Issue instruction to Robot (It turn left, turn right, move forward, move backward, and attack)')
+    @ns.response(200, "Modified")
+    @ns.response(404, 'No record found')
+    @ns.response(500, 'internal server error')
+    @ns.expect(InstructionModel.issue_instruction, validate=True)
+    def put(self):
+        """This endpoint takes instruction i.e. change robot direction or attack dinosaur. """
+
+        try:
+            payload = marshal(api.payload, InstructionModel.issue_instruction)
+            x_cord = payload['x_cord']
+            y_cord = payload['y_cord']
+            direction = payload.get('direction', '')
+            attack = payload.get('attack', False)
+            result = RoboVsDino().issue_instruction(x_cord, y_cord, direction, attack, SimulationConfig().JSON_FILE)
+            if result:
+                # return updated json after removing dinosaur as result of successful attack
+                return jsonify(result)
+            else:
+                return {"message": "No entity exists in provided spot or coordinates outside simulation grid"}, 404
         except Exception as e:
             abort(500, str(e), status='some internal api error occurred', statusCode='500')
 
