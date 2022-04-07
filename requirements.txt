@@ -2,3 +2,4 @@ flask-restplus==0.13.0
 Werkzeug==0.15.6
 Flask==1.1.1
 Flask-Cors==3.0.10
+numpy==1.22.3
