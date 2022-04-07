@@ -155,17 +155,15 @@ class IssueRobotInstruction(Resource):
             attack = True if attack == "True" else False
             result = RoboVsDino().issue_instruction(int(x_cord), int(y_cord), str(direction), attack, SimulationConfig().JSON_FILE)
             if result:
-                # return updated json after removing dinosaur as result of successful attack
+                # return to webapp page to display latest changes
                 grid_spots = StorageUtility().read_json(SimulationConfig().JSON_FILE)
                 df = RoboVsDino().entities_mapping_to_grid(grid_spots)
-                # display result.html with table once url hits http://<domain url>/webapp/
                 return make_response(render_template('result.html', table=[df.to_html()]), 200, headers)
             else:
                 return {"message": "No entity exists in provided spot or coordinates outside simulation grid"}, 404
 
         except Exception as e:
             abort(500, str(e), status='some internal api error occurred', statusCode='500')
-
 
     @ns.response(204, "Deleted")
     @ns.response(404, 'No record found')
