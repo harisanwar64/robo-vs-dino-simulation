@@ -26,7 +26,7 @@
    {
       "id":4,
       "type":"R",
-      "x_cord":13,
+      "x_cord":23,
       "y_cord":34,
       "direction":"Up",
       "description":"default robot 1"

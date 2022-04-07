@@ -142,6 +142,28 @@ class IssueRobotInstruction(Resource):
         except Exception as e:
             abort(500, str(e), status='some internal api error occurred', statusCode='500')
 
+    @ns.response(204, "Deleted")
+    @ns.response(404, 'No record found')
+    @ns.response(500, 'internal server error')
+    @ns.expect(InstructionModel.issue_instruction, validate=True)
+    def delete(self):
+        """This endpoint takes instruction of delete by coordinates."""
+
+        try:
+            payload = marshal(api.payload, InstructionModel.issue_instruction)
+            entity = {
+                'x_cord': payload['x_cord'],
+                'y_cord': payload['y_cord']
+                }
+            result = RoboVsDino().kill_entity(entity, SimulationConfig().JSON_FILE)
+            if result:
+                # return updated json after removing dinosaur as result of successful attack
+                return jsonify(result)
+            else:
+                return {"message": "No entity exists in provided spot or coordinates outside simulation grid"}, 404
+        except Exception as e:
+            abort(500, str(e), status='some internal api error occurred', statusCode='500')
+
 
 if __name__ == '__main__':
     app.run()
