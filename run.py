@@ -5,7 +5,7 @@ from simulation import RoboVsDino
 app = Flask(__name__)
 api = Api(app)
 parser = reqparse.RequestParser()
-ns = api.namespace('robo-vs-dino', description='Army of remote-controlled robots to fight the dinosaurs')
+ns = api.namespace('webapp', description='Army of remote-controlled robots to fight the dinosaurs')
 
 
 @ns.route('/')
@@ -16,7 +16,7 @@ class RoboVsDinoStatus(Resource):
 
         RoboVsDino().create_grid()
         RoboVsDino().display_grid()
-        # display page.html once url hits http://<domain url>/robo-vs-dino/
+        # display page.html once url hits http://<domain url>/webapp/
         return make_response(render_template('page.html'))
 
 
