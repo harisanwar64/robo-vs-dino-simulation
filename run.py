@@ -11,9 +11,12 @@ ns = api.namespace('robo-vs-dino', description='Army of remote-controlled robots
 @ns.route('/')
 class RoboVsDinoStatus(Resource):
     def get(self):
+        """After accessing url (with port) the page user will see is home page. Home page resides in template directory
+                 with name page.html"""
 
         RoboVsDino().create_grid()
         RoboVsDino().display_grid()
+        # display page.html once url hits http://<domain url>/robo-vs-dino/
         return make_response(render_template('page.html'))
 
 
