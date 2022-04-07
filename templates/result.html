@@ -5,6 +5,14 @@
 <body>
     <h2>Welcome to Robots vs Dinosaur Simulation</h2><br><br>
     <h4>Simulation Grid</h4>
+    <form action="robot_instruction" enctype="multipart/form-data" method="GET">
+        X coordinate: <input type="text" name="x_coordinate">
+        Y coordinate: <input type="text" name="y_coordinate">
+        Direction (Up, Down, Left, Right): <input type="text" name="direction">
+        Attack: <input type="radio" id="attack" name="attack" value="True">
+        Don't Attack: <input type="radio" id="attack_no" name="attack" value="False">
+        <input type="submit">
+    </form>
     <div>
         {% for column in table %}
             {{ column|safe }}

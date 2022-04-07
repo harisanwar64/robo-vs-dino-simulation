@@ -26,9 +26,62 @@
    {
       "id":4,
       "type":"R",
-      "x_cord":23,
-      "y_cord":34,
+      "x_cord":13,
+      "y_cord":35,
       "direction":"Up",
       "description":"default robot 1"
+   },
+   {
+      "id":"pO0UoF5YTpKMEVaKcnqccg",
+      "type":"R",
+      "x_cord":45,
+      "y_cord":21,
+      "direction":"Left",
+      "description":"unit test desc"
+   },
+   {
+      "id":"n7psEM5WSmmjsbkmrfecgg",
+      "type":"R",
+      "x_cord":3,
+      "y_cord":43,
+      "direction":"Left",
+      "description":"default robot 2",
+      "attack":true
+   },
+   {
+      "id":"dsfsjkfhkjh",
+      "type":"D",
+      "x_cord":3,
+      "y_cord":44,
+      "direction":"*",
+      "description":"default dino 4",
+      "attack":true
+   },
+   {
+      "id":"sdflkm54",
+      "type":"D",
+      "x_cord":2,
+      "y_cord":2,
+      "direction":"*",
+      "description":"default dino 5",
+      "attack":true
+   },
+  {
+      "id":"dsfsjkfhkjh",
+      "type":"D",
+      "x_cord":3,
+      "y_cord":2,
+      "direction":"*",
+      "description":"default dino 5",
+      "attack":true
+   },
+  {
+      "id":"sdlkmscp",
+      "type":"R",
+      "x_cord":3,
+      "y_cord":4,
+      "direction":"Up",
+      "description":"default robot 3",
+      "attack":true
    }
 ]

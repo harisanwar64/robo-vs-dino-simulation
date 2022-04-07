@@ -1,4 +1,4 @@
-from flask import Flask, render_template, make_response, jsonify
+from flask import Flask, render_template, make_response, jsonify, request
 from flask_restplus import Api, Resource, reqparse, marshal, abort, fields
 from app.simulation import RoboVsDino
 from app.storage_util import StorageUtility
@@ -126,7 +126,6 @@ class IssueRobotInstruction(Resource):
     @ns.expect(InstructionModel.issue_instruction, validate=True)
     def put(self):
         """This endpoint takes instruction i.e. change robot direction or attack dinosaur. """
-
         try:
             payload = marshal(api.payload, InstructionModel.issue_instruction)
             x_cord = payload['x_cord']
@@ -141,6 +140,32 @@ class IssueRobotInstruction(Resource):
                 return {"message": "No entity exists in provided spot or coordinates outside simulation grid"}, 404
         except Exception as e:
             abort(500, str(e), status='some internal api error occurred', statusCode='500')
+
+    @ns.response(200, "Modified")
+    @ns.response(404, 'No record found')
+    @ns.response(500, 'internal server error')
+    @api.doc('Endpoint for web app only!')
+    def get(self):
+        """Web based GET method endpoint takes instruction i.e. change robot direction or attack dinosaur. """
+        try:
+            x_cord = request.args.get('x_coordinate', None)
+            y_cord = request.args.get('y_coordinate', None)
+            direction = request.args.get('direction', 'Up')
+            attack = request.args.get('attack', False)
+            attack = True if attack == "True" else False
+            result = RoboVsDino().issue_instruction(int(x_cord), int(y_cord), str(direction), attack, SimulationConfig().JSON_FILE)
+            if result:
+                # return updated json after removing dinosaur as result of successful attack
+                grid_spots = StorageUtility().read_json(SimulationConfig().JSON_FILE)
+                df = RoboVsDino().entities_mapping_to_grid(grid_spots)
+                # display result.html with table once url hits http://<domain url>/webapp/
+                return make_response(render_template('result.html', table=[df.to_html()]), 200, headers)
+            else:
+                return {"message": "No entity exists in provided spot or coordinates outside simulation grid"}, 404
+
+        except Exception as e:
+            abort(500, str(e), status='some internal api error occurred', statusCode='500')
+
 
     @ns.response(204, "Deleted")
     @ns.response(404, 'No record found')
