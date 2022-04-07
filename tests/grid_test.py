@@ -1,5 +1,5 @@
 import unittest
-from simulation import RoboVsDino
+from app.simulation import RoboVsDino
 
 
 class TestUser(unittest.TestCase):

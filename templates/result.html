@@ -1,0 +1,14 @@
+<html>
+    <head>
+    <title>Welcome to Robots vs Dinosaur Simulation</title>
+    </head>
+<body>
+    <h2>Welcome to Robots vs Dinosaur Simulation</h2><br><br>
+    <h4>Simulation Grid</h4>
+    <div>
+        {% for column in table %}
+            {{ column|safe }}
+        {% endfor %}
+    </div>
+</body>
+</html>

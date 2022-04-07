@@ -1,0 +1,34 @@
+[
+   {
+      "id":1,
+      "type":"D",
+      "x_cord":4,
+      "y_cord":8,
+      "direction":"*",
+      "description":"default dino 1"
+   },
+   {
+      "id":2,
+      "type":"D",
+      "x_cord":21,
+      "y_cord":2,
+      "direction":"*",
+      "description":"default dino 2"
+   },
+   {
+      "id":3,
+      "type":"D",
+      "x_cord":13,
+      "y_cord":34,
+      "direction":"*",
+      "description":"default dino 3"
+   },
+   {
+      "id":4,
+      "type":"R",
+      "x_cord":13,
+      "y_cord":34,
+      "direction":"Up",
+      "description":"default robot 1"
+   }
+]
