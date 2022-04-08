@@ -118,3 +118,7 @@ single json file has many issue in term of privacy, roles, tranparency b/w diffe
   need to be fixed.
  - If wants to go with json file so use of 'IDs' (in etity object) to perform read/write in file.
 - As I'm using logging library so log file need to have somewhere in project directory for better app maintenance and debugging. 
+
+### Demo
+
+![Alt text](demo-gif/robo-vs-dino.gif)
