@@ -55,21 +55,21 @@ Open http://127.0.0.1:5000 on browser to see project app.<br/>
 A small limitation due to time constraint: Before running unit test (`python -m tests.unit_test`) of flask API (/create_entity) second time, 
 please update existing coordinates. As application won't
 allow to create another entity with same coordinate which ultimately fails 
-the test.
+the unit test.
 <br/>
 
 **Project Important Instructions:** <br/>
 
 - By opening http://127.0.0.1:5000 or http://0.0.0.0:5000 on your browser the first thing you will
 see is APIs dashboard. Simulation grid and robot instruction page should available at route 
-http://127.0.0.1:5000/webapp or http://0.0.0.0:5000/webapp.
+http://127.0.0.1:5000/webapp (or http://0.0.0.0:5000/webapp).
 
 - Due to time constraint all project functionality e.g. create robot, create dinosaur, delete robot/dinosaur
 etc. not available on /webapp route. However, these functionalities included in app and can be achieved using
 APIs swagger dashboard at http://127.0.0.1:5000.
 
-- Dashboard at http://127.0.0.1:5000 provides APIs documentation, APIs listing, api model/design pattern,
-APIs request sample payload, error code details etc. Please follow instructions to execute APIs.
+- Dashboard at http://127.0.0.1:5000 provides APIs documentation, APIs listing, api model/design patterns,
+APIs request sample payload, error code details etc. Please follow instructions on dashboard to execute APIs.
 
 
 ### Application Structure
@@ -94,7 +94,6 @@ APIs request sample payload, error code details etc. Please follow instructions 
 
 
 This is my application structure based on requirements and scope. 
-It can be expand in multiple plugins with increased scope.
 
 #### Application Approach:
 
@@ -104,13 +103,13 @@ It can be improved with increased scope.
 #### Security Policy and conventions compromised due to time limitations:
 
 - Storage should be database management system that provides special interface to make changes in application data. Using
-single json file has many issue in term of privacy, roles, tranparency b/w different feature data, increased scope etc.
+single json file has many issue in term of privacy, roles, tranparency b/w different feature and increased scope etc.
 
 
 ### More things can be doable if spend more time
 
 - Use of DB for storing entities as single json file has many limitations.
-- More tests can be added for star info in dataframe and graph, csv created in csv_downloads or not, flask api responses etc.
+- More tests can be added in tests directory.
 - More error handling by using try catch and if else statements can be add in code.
 - More UI control can be added on webpage i.e. create robot, create dinosaur, delete robot/dinosaur etc.
 - Currently same API developed for entity (robot/dinosaur) creation. So, API is taking direction from dinosaur as required argument
