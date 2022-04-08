@@ -28,8 +28,8 @@ class Direction(Enum):
     Left = 'Left'
 
 
+# API Design model for creating entity i.e. robot or dinosaurs
 class RobotVsDinoModel(object):
-    # API model for creating entity i.e. robot or dinosaurs
     create_entity = api.model('create_entity', {
         # 'id': fields.String(required=False, description='type identifier', attribute='_id'),
         'type': fields.String(required=True, enum=[x.name for x in Type],
@@ -42,8 +42,8 @@ class RobotVsDinoModel(object):
     })
 
 
+# API Design model for issue instruction i.e. robot can turn left, turn right, move forward, move backward, and attack
 class InstructionModel(object):
-    # API model for issue instruction i.e. robot can turn left, turn right, move forward, move backward, and attack
     issue_instruction = api.model('issue_instruction', {
         'x_cord': fields.Integer(required=True, description='x-cord of robot in grid'),
         'y_cord': fields.Integer(required=True, description='y-cord of robot in grid'),

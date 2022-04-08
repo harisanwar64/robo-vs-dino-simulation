@@ -19,10 +19,10 @@ class FlaskTest(unittest.TestCase):
         test_payload = {
             "description": "unit test desc",
             "direction": "Left",
-            "id": "xyz",
-            "type": "R",
-            "x_cord": 45,
-            "y_cord": 21
+            "id": "xysfdz",
+            "type": "D",
+            "x_cord": 28,
+            "y_cord": 35
         }
         response = tester.post("webapp/create_entity", data=json.dumps(test_payload),
                                headers={'Content-Type': 'application/json'})
